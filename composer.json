@@ -1,0 +1,16 @@
+{
+    "name": "milesj/hhi",
+    "description": "Command line tool for generating Hack HHI definitions.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Miles Johnson",
+            "email": "mileswjohnson@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"HHI\\": "src/HHI/"}
+    }
+}
