@@ -19,7 +19,7 @@ class FunctionDefinition extends AbstractDefinition {
         }, $this->reflection->getParameters());
 
         return $this->render('function {name}({params}) {}', [
-            'name' => $this->reflection->getName(),
+            'name' => $this->reflection->getShortName(),
             'params' => new ParamListDefinition(...$params)
         ]);
     }

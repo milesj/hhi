@@ -38,6 +38,9 @@ class Type {
 
         } else if (is_null($value)) {
             return 'null';
+
+        } else if (is_array($value)) {
+            return '[]';
         }
 
         return sprintf('"%s"', $value);

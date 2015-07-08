@@ -24,6 +24,7 @@ class AbstractDefinition {
         }
 
         $format = preg_replace("/(?<!\n) {2,}/", ' ', $format);
+        $format = preg_replace("/\n{3,}/", "\n\n", $format);
 
         return str_repeat(' ', $this->indent) . trim($format);
     }

@@ -9,6 +9,8 @@ use ReflectionClass;
  */
 class ClassDefinition extends AbstractDefinition {
 
+    protected $wrap = true;
+
     public function __construct(ReflectionClass $reflection) {
         $this->reflection = $reflection;
     }
@@ -16,13 +18,6 @@ class ClassDefinition extends AbstractDefinition {
     public function __toString() {
         $class = $this->reflection;
         $parent = $class->getParentClass();
-
-        // Namespace
-        $namespace = '%s';
-
-        if ($ns = $class->getNamespaceName()) {
-            $namespace = $ns . " {\n%s\n}";
-        }
 
         // Modifiers
         $modifiers = '';
@@ -77,7 +72,7 @@ class ClassDefinition extends AbstractDefinition {
         $properties = [];
 
         foreach ($class->getProperties() as $property) {
-            if (!$parent || !$parent->hasProperty($property)) {
+            if (!$parent || !$parent->hasProperty($property->getName())) {
                 $properties[$property->getName()] = (new PropertyDefinition($property))->indent(2);
             }
         }
@@ -88,7 +83,7 @@ class ClassDefinition extends AbstractDefinition {
         $methods = [];
 
         foreach ($class->getMethods() as $method) {
-            if (!$parent || !$parent->hasMethod($method)) {
+            if (!$parent || !$parent->hasMethod($method->getName())) {
                 $methods[$method->getName()] = (new MethodDefinition($method))->indent(2);
             }
         }
@@ -103,13 +98,27 @@ class ClassDefinition extends AbstractDefinition {
             'methods' => implode("\n", $methods)
         ]);
 
-        return sprintf($namespace, $this->render("{modifiers} {name} {extends} {implements} {\n{body}\n}", [
+        return $this->renderNamespace($this->render("{modifiers} {name} {extends} {implements} {\n{body}\n}", [
             'modifiers' => $modifiers,
-            'name' => $class->getName(),
+            'name' => $class->getShortName(),
             'extends' => $extends,
             'implements' => $implements,
             'body' => implode("\n", $body)
         ]));
+    }
+
+    public function renderNamespace($body) {
+        if ($this->wrap) {
+
+        }
+
+        return $body;
+    }
+
+    public function wrapNamespace($status) {
+        $this->wrap = (bool) $status;
+
+        return $this;
     }
 
 }

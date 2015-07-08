@@ -55,8 +55,8 @@ class ParamDefinition extends AbstractDefinition {
             try {
                 if ($value = $param->getDefaultValueConstantName()) {
                     $default .= $value;
-                } else if ($value = $param->getDefaultValue()) {
-                    $default .= Type::getLiteralValue($value);
+                } else {
+                    $default .= Type::getLiteralValue($param->getDefaultValue());
                 }
 
             } catch (Exception $e) {
