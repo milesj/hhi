@@ -9,6 +9,6 @@ Vagrant.configure(2) do |config|
     sudo add-apt-repository ppa:ondrej/php5-5.6
     sudo apt-get update
     sudo apt-get upgrade
-    sudo apt-get install -y php5 php5-curl php5-intl php5-redis
+    sudo apt-get install -y php5 php5-curl php5-intl php5-redis php-apc php5-memcached
   SHELL
 end

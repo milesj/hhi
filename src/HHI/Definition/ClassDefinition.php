@@ -108,8 +108,8 @@ class ClassDefinition extends AbstractDefinition {
     }
 
     public function renderNamespace($body) {
-        if ($this->wrap) {
-
+        if ($this->wrap && $this->reflection->inNamespace()) {
+            $body = sprintf("namespace %s {\n\n%s\n\n}", $this->reflection->getNamespaceName(), $body);
         }
 
         return $body;
